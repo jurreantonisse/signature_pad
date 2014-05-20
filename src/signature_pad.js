@@ -118,15 +118,16 @@ var SignaturePad = (function (document) {
         this._canvas.style.msTouchAction = 'none';
 
         this._canvas.addEventListener("touchstart", function (event) {
-            var touch = event.changedTouches[0];
-            self._strokeBegin(touch);
+            if (event.targetTouches.length == 1) {
+                var touch = event.changedTouches[0];
+                self._strokeBegin(touch);
+            }
         });
 
         this._canvas.addEventListener("touchmove", function (event) {
             // Prevent scrolling.
             event.preventDefault();
-
-            var touch = event.changedTouches[0];
+            var touch = event.targetTouches[0];
             self._strokeUpdate(touch);
         });
 
